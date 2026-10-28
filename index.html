@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BuildMaster | Construction Site Management</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="brand">🏗️ BuildMaster<small>SITE MANAGEMENT</small></div>
+  <nav class="nav" id="nav">
+    <button class="active" data-view="dashboard">▦ &nbsp; Dashboard</button>
+    <button data-view="rfi">▤ &nbsp; RFI / RFA</button>
+    <button data-view="materials">▣ &nbsp; PR / Materials / DO</button>
+    <button data-view="safety">⛑ &nbsp; Safety & Inspection</button>
+    <button data-view="permits">▥ &nbsp; Permits (PTW)</button>
+    <button data-view="photos">▧ &nbsp; Site Photos</button>
+    <button data-view="documents">▤ &nbsp; Documents</button>
+    <button data-view="daily">☷ &nbsp; Daily Reports</button>
+    <button data-view="ai">✦ &nbsp; Writing Assistant</button>
+    <button data-view="settings">⚙ &nbsp; Data & Settings</button>
+  </nav>
+  <p class="sidebar-note">Starter prototype<br>Works locally in this browser. Not connected to any company system.</p>
+</aside>
+<main class="main">
+<header class="topbar"><div><div class="eyebrow">CONSTRUCTION WORKSPACE</div><h1 id="pageTitle">Dashboard</h1></div><span class="pill" id="projectPill">My Construction Project</span></header>
+
+<section class="view active" id="view-dashboard">
+  <div class="notice"><strong>Welcome to BuildMaster.</strong> This starter app saves records in this browser on this device. Use fictional/sample information while testing; it is not a secure company cloud system.</div>
+  <div class="grid stats">
+    <div class="card"><div class="stat-label">Open RFIs</div><div class="stat-value" id="stat-rfi">0</div><div class="stat-foot">RFI items not closed</div></div>
+    <div class="card"><div class="stat-label">Pending RFAs</div><div class="stat-value" id="stat-rfa">0</div><div class="stat-foot">Awaiting final status</div></div>
+    <div class="card"><div class="stat-label">Open PRs / Materials</div><div class="stat-value" id="stat-pr">0</div><div class="stat-foot">Not yet completed</div></div>
+    <div class="card"><div class="stat-label">Open Safety Items</div><div class="stat-value" id="stat-safety">0</div><div class="stat-foot">Actions to follow up</div></div>
+    <div class="card"><div class="stat-label">Open Permits</div><div class="stat-value" id="stat-permit">0</div><div class="stat-foot">Not closed / rejected / expired</div></div>
+    <div class="card"><div class="stat-label">Permits Past Expiry</div><div class="stat-value" id="stat-permit-exp">0</div><div class="stat-foot">Expiry date has passed</div></div>
+  </div>
+  <div class="grid two">
+    <div class="card"><div class="section-head"><h2>Recent records</h2><button class="btn secondary" id="exportDashboard">Export CSV</button></div><div id="recentRecords" class="list"></div></div>
+    <div class="card"><div class="section-head"><h2>Quick actions</h2></div><div class="grid">
+      <button class="btn" data-add="rfi">＋ Add RFI / RFA</button>
+      <button class="btn secondary" data-add="materials">＋ Add PR / Material / DO</button>
+      <button class="btn secondary" data-add="safety">＋ Report safety item</button>
+      <button class="btn secondary" data-add="daily">＋ Create daily report</button>
+      <button class="btn secondary" data-add="permits">＋ Apply permit</button>
+    </div><p class="small muted" style="margin-top:14px">Tip: open a module to search, edit status, or export its records.</p></div>
+  </div>
+</section>
+
+<section class="view" id="view-rfi">
+  <div class="section-head"><div><h2>RFI / RFA Register</h2><p class="small muted">Track submissions, replies and approvals.</p></div><button class="btn" data-add="rfi">＋ Add record</button></div>
+  <div class="toolbar"><input id="search-rfi" placeholder="Search number, subject, person…"><select id="filter-rfi"><option value="">All statuses</option><option>Pending</option><option>Submitted</option><option>Approved</option><option>Rejected</option><option>Closed</option></select><button class="btn ghost" data-export="rfi">Export CSV</button></div>
+  <div id="table-rfi"></div>
+</section>
+
+<section class="view" id="view-materials">
+  <div class="section-head"><div><h2>PR / Materials / DO Register</h2><p class="small muted">Track purchase requests, quantities and deliveries.</p></div><button class="btn" data-add="materials">＋ Add record</button></div>
+  <div class="toolbar"><input id="search-materials" placeholder="Search PR, item, supplier, DO…"><select id="filter-materials"><option value="">All statuses</option><option>Pending</option><option>Approved</option><option>Ordered</option><option>Partially Delivered</option><option>Completed</option><option>Overdue</option></select><button class="btn ghost" data-export="materials">Export CSV</button></div>
+  <div id="table-materials"></div>
+</section>
+
+<section class="view" id="view-safety">
+  <div class="section-head"><div><h2>Safety & Inspection</h2><p class="small muted">Record hazards, observations and corrective actions.</p></div><button class="btn" data-add="safety">＋ Add safety item</button></div>
+  <div class="toolbar"><input id="search-safety" placeholder="Search hazard, location, owner…"><select id="filter-safety"><option value="">All statuses</option><option>Open</option><option>In Progress</option><option>Completed</option><option>Overdue</option></select><button class="btn ghost" data-export="safety">Export CSV</button></div>
+  <div id="table-safety"></div>
+</section>
+
+<section class="view" id="view-permits">
+  <div class="section-head"><div><h2>Permits (PTW / Equipment / MOM)</h2><p class="small muted">Apply and track work permits, equipment permits and MOM work permits.</p></div><button class="btn" data-add="permits">＋ Apply permit</button></div>
+  <div class="toolbar"><input id="search-permits" placeholder="Search permit no., worker, contractor, location…"><select id="filter-permits"><option value="">All statuses</option><option>Draft</option><option>Submitted</option><option>Under Review</option><option>Approved</option><option>Rejected</option><option>Closed</option><option>Expired</option></select><button class="btn ghost" data-export="permits">Export CSV</button></div>
+  <div id="table-permits"></div>
+</section>
+
+<section class="view" id="view-photos">
+  <div class="section-head"><div><h2>Site Photo Records</h2><p class="small muted">Store captions and references; images stay on your device only if you attach them elsewhere.</p></div><button class="btn" data-add="photos">＋ Add photo record</button></div>
+  <div class="toolbar"><input id="search-photos" placeholder="Search activity, area, caption…"><button class="btn ghost" data-export="photos">Export CSV</button></div><div id="table-photos"></div>
+</section>
+
+<section class="view" id="view-documents">
+  <div class="section-head"><div><h2>Document Register</h2><p class="small muted">Track document references, revisions and expiry dates.</p></div><button class="btn" data-add="documents">＋ Add document</button></div>
+  <div class="toolbar"><input id="search-documents" placeholder="Search document number, title, owner…"><button class="btn ghost" data-export="documents">Export CSV</button></div><div id="table-documents"></div>
+</section>
+
+<section class="view" id="view-daily">
+  <div class="section-head"><div><h2>Daily Progress Reports</h2><p class="small muted">Record work progress, manpower, equipment and issues.</p></div><button class="btn" data-add="daily">＋ Add daily report</button></div>
+  <div class="toolbar"><input id="search-daily" placeholder="Search date, activity, prepared by…"><button class="btn ghost" data-export="daily">Export CSV</button></div><div id="table-daily"></div>
+</section>
+
+<section class="view" id="view-ai">
+  <div class="card"><h2>Writing Assistant</h2><p class="muted small">This offline helper tidies common site notes into a reusable draft. It is not connected to an AI service.</p>
+    <label class="small muted" for="assistantType">What do you want to prepare?</label><select id="assistantType" style="margin:7px 0 12px"><option value="photo">Site photo title</option><option value="email">Professional email / message</option><option value="daily">Daily progress summary</option><option value="safety">Safety observation</option><option value="pr">PR material description</option></select>
+    <label class="small muted" for="assistantInput">Type your rough notes</label><textarea id="assistantInput" rows="5" placeholder="Example: ULT 1 underground service detection completed today for NCE submission"></textarea>
+    <div class="form-actions" style="justify-content:flex-start"><button class="btn" id="generateDraft">Generate draft</button><button class="btn ghost" id="copyDraft">Select draft</button></div>
+    <h3 style="font-size:14px;margin:20px 0 8px">Draft output</h3><div id="assistantOutput" class="report-box" aria-live="polite">Your generated draft will appear here.</div>
+    <p class="small muted">Always check technical details, names, dates and official wording before using a draft.</p>
+  </div>
+</section>
+
+<section class="view" id="view-settings">
+  <div class="grid two">
+    <div class="card"><h2>Project settings</h2><p class="small muted">Customise the project label shown in the app.</p><label class="small muted" for="projectName">Project name</label><input id="projectName" placeholder="My Construction Project" style="margin:7px 0 12px"><button class="btn" id="saveProject">Save project name</button></div>
+    <div class="card"><h2>Backup & data</h2><p class="small muted">Export a JSON backup or restore one on this browser.</p><div class="grid"><button class="btn secondary" id="backupData">Download JSON backup</button><label class="btn ghost" for="restoreFile" style="text-align:center">Restore JSON backup<input type="file" id="restoreFile" accept=".json,application/json" style="display:none"></label><button class="btn danger" id="clearData">Delete all local records</button></div></div>
+  </div>
+  <div class="card" style="margin-top:14px"><h2>Important limitations</h2><ul class="small muted" style="line-height:1.9"><li>Records are stored in this browser's local storage, not in a shared company database.</li><li>Clearing browser data or changing device/browser may remove records. Export backups regularly.</li><li>Do not enter confidential employer, worker, client, or project information into this prototype.</li><li>Real multi-user login, cloud backup, permissions, secure uploads, audit logs and AI API integration must be added before business use.</li></ul></div>
+</section>
+<div class="footer">BuildMaster prototype • Local browser storage • For testing and learning only. Not an official HDB, contractor, or company application.</div>
+</main>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-box"><h2 id="modalTitle">Add record</h2><form id="recordForm"><div id="formFields" class="form-grid"></div><div class="form-actions"><button type="button" class="btn ghost" id="cancelModal">Cancel</button><button type="submit" class="btn">Save record</button></div></form></div></div>
+<script src="app.js"></script>
+</body>
+</html>
